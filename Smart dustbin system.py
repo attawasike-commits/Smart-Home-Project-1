@@ -39,7 +39,7 @@ while True:
     else:
         print("Bin is empty")
 
-    # 4. Interactive Simulation Control
+    # 4. Interactive Control System 
     power_level -= 15
 
     repeat = input("\nDo you want to test again? (yes/no): ").lower()
