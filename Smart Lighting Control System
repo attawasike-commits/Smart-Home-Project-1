@@ -1,12 +1,46 @@
+# ==================================================
+# SMART LIGHTING CONTROL SYSTEM
+# ==================================================
+
+# --------------------------------------------------
+# 1. PASSWORD AUTHENTICATION
+# --------------------------------------------------
+password = "1234"
+attempts = 3
+
+print("=== SMART LIGHTING CONTROL SYSTEM ===")
+
+while attempts > 0:
+    user_password = input("Enter system password: ")
+
+    if user_password == password:
+        print("ACCESS GRANTED!")
+        break
+    else:
+        attempts -= 1
+        print(f"Incorrect password. Attempts remaining: {attempts}")
+
+if attempts == 0:
+    print("SYSTEM LOCKED!")
+    exit()
+
+# --------------------------------------------------
+# 2. SYSTEM INITIALIZATION
+# --------------------------------------------------
 power_level = 100
-max_power = 100
 
-print("=== SMART LIGHTING CONTROL SYSTEM INITIALIZED ===")
+print("\n=== SYSTEM INITIALIZED ===")
 
+# --------------------------------------------------
+# 3. MAIN SYSTEM LOOP
+# --------------------------------------------------
 while True:
-    print("\n" + "=" * 40)
 
-    # 1. Power Status
+    print("\n" + "=" * 50)
+
+    # ----------------------------------------------
+    # 4. BATTERY STATUS CHECK
+    # ----------------------------------------------
     print(f"Battery Level: {power_level}%")
 
     if power_level > 50:
@@ -14,36 +48,103 @@ while True:
     elif power_level >= 20:
         print("Power Status: Low")
     else:
-        print("Power Status: Critical - Recharge Needed")
+        print("Power Status: Critical")
 
-    # 2. Motion Detection
+    # ----------------------------------------------
+    # 5. MOTION DETECTION
+    # ----------------------------------------------
     motion = input("\nMotion detected? (yes/no): ").lower()
 
     if motion == "yes":
-        print("Motion detected")
+        print("Motion Detected")
         lights_on = True
     else:
-        print("No motion detected")
+        print("No Motion Detected")
         lights_on = False
 
-    # 3. Ambient Light Sensor
-    ambient_light = int(input("Ambient light level (0-100): "))
+    # ----------------------------------------------
+    # 6. AMBIENT LIGHT SENSOR
+    # ----------------------------------------------
+    ambient_light = int(input("Ambient Light Level (0-100): "))
 
     if ambient_light < 30:
         brightness = 100
-        print("Dark environment")
+        print("Dark Environment")
     elif ambient_light < 70:
         brightness = 60
-        print("Moderately lit environment")
+        print("Moderately Lit Environment")
     else:
         brightness = 20
-        print("Bright environment")
+        print("Bright Environment")
 
-    # 4. Time-Based Control
-    hour = int(input("Current hour (0-23): "))
+    # ----------------------------------------------
+    # 7. TIME-BASED CONTROL (NIGHT MODE)
+    # ----------------------------------------------
+    hour = int(input("Current Hour (0-23): "))
 
     if 18 <= hour <= 23 or 0 <= hour <= 5:
         print("Night Mode Activated")
         brightness += 20
+
         if brightness > 100:
             brightness = 100
+
+    # ----------------------------------------------
+    # 8. SECURITY ALERT
+    # ----------------------------------------------
+    if motion == "yes" and (hour >= 23 or hour <= 5):
+        print("SECURITY ALERT: Unexpected Night Movement!")
+
+    # ----------------------------------------------
+    # 9. ENERGY SAVING MODE
+    # ----------------------------------------------
+    if power_level < 30:
+        brightness = brightness // 2
+        print("Energy Saving Mode Activated")
+
+    # ----------------------------------------------
+    # 10. VOICE COMMANDS
+    # ----------------------------------------------
+    command = input(
+        "Voice Command (lights on/lights off/skip): "
+    ).lower()
+
+    if command == "lights on":
+        lights_on = True
+    elif command == "lights off":
+        lights_on = False
+
+    # ----------------------------------------------
+    # 11. LIGHT CONTROL
+    # ----------------------------------------------
+    if lights_on:
+        print("\nLIGHT STATUS: ON")
+        print(f"Brightness Level: {brightness}%")
+        power_level -= 5
+    else:
+        print("\nLIGHT STATUS: OFF")
+        power_level -= 1
+
+    # ----------------------------------------------
+    # 12. PREVENT NEGATIVE BATTERY
+    # ----------------------------------------------
+    if power_level < 0:
+        power_level = 0
+
+    # ----------------------------------------------
+    # 13. EMERGENCY MODE
+    # ----------------------------------------------
+    if power_level <= 10:
+        print("EMERGENCY MODE ACTIVATED")
+        print("Battery Critically Low!")
+
+    # ----------------------------------------------
+    # 14. CONTINUE OR EXIT
+    # ----------------------------------------------
+    choice = input("\nRun system again? (yes/no): ").lower()
+
+    if choice != "yes":
+        print("\n=== FINAL REPORT ===")
+        print(f"Battery Remaining: {power_level}%")
+        print("System Shutting Down...")
+        break
