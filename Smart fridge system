@@ -6,7 +6,6 @@ print("--- SMART FRIDGE SYSTEM INITIALIZED ---")
 while True:
     print("\n" + "---" * 10)
 
-    # 1. System Power Check
     print(f"Power left: {power_level}%")
     if power_level > 70:
         print("Status: Power is high (Saving energy)")
@@ -15,7 +14,6 @@ while True:
     else:
         print("Status: Power is very low (Slowing down to save battery!)")
 
-    # 2. Temperature Sensor Logic (Fixed boundaries)
     temperature = float(input("\nEnter current fridge temperature (C): "))
     if temperature < 10:
         print("Alert: Temperature too cold! Food might freeze.")
@@ -24,7 +22,6 @@ while True:
     else:
         print("Warning: Temperature too warm! Food spoilage danger.")
 
-    # 3. Item Count Capacity Logic
     items_inside = int(input("\nHow many grocery items are inside right now?: "))
     fill_rate = (items_inside / fridge_max_items) * 100
     print(f"Storage Space Used: {fill_rate:.1f}%")
@@ -38,7 +35,6 @@ while True:
     else:
         print("Status: Fridge is practically empty! Restock immediately.")
 
-    # 4. Simulation Controls (Fixed syntax error)
     power_level -= 25  # Substracts 25 from power level each loop
 
     user_loop = input("\nRefresh fridge sensors? (yes/no): ").lower()
