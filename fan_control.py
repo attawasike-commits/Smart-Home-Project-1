@@ -1,9 +1,9 @@
 import time
-import random  # only used to FAKE sensor readings for this demo
+import random  #  used to FAKE sensor readings for this demo
 
-# ---- Variables: the settings and state our program tracks ----
-TEMP_ON = 35       # turn fan ON when temperature reaches this (°C)
-TEMP_OFF = 30      # turn fan OFF when temperature drops to this (°C)
+
+TEMP_ON = 35       # turn fan ON when temperature reaches this (35°C)
+TEMP_OFF = 30      # turn fan OFF when temperature drops to this (30°C)
 fan_is_on = False  # current state of the fan
 
 
