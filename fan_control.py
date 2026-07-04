@@ -47,4 +47,4 @@ while True:
     fan_is_on = decide_fan_state(temperature, fan_is_on)
     set_fan(fan_is_on)
     print(f"Temp: {temperature:.1f}°C -> Fan: {'ON' if fan_is_on else 'OFF'}")
-    time.sleep(1)
+    time.sleep(12*60*60)
