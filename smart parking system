@@ -1,0 +1,68 @@
+class SmartParking:
+    def __init__(self, total_slots):
+        self.total_slots = total_slots
+        self.slots = [False] * total_slots   # False = Available, True = Occupied
+
+    def display_slots(self):
+        print("\n===== PARKING STATUS =====")
+        available = 0
+
+        for i, occupied in enumerate(self.slots):
+            if occupied:
+                print(f"Slot P{i+1}: Occupied")
+            else:
+                print(f"Slot P{i+1}: Available")
+                available += 1
+
+        print(f"\nAvailable Slots: {available}/{self.total_slots}")
+
+    def park_vehicle(self):
+        for i in range(self.total_slots):
+            if not self.slots[i]:
+                self.slots[i] = True
+                print(f"\nVehicle parked in Slot P{i+1}")
+                return
+
+        print("\nParking Full!")
+
+    def leave_vehicle(self, slot):
+        if slot < 1 or slot > self.total_slots:
+            print("Invalid Slot Number")
+            return
+
+        if self.slots[slot - 1]:
+            self.slots[slot - 1] = False
+            print(f"\nSlot P{slot} is now available.")
+        else:
+            print("\nSlot already empty.")
+
+
+# Main Program
+
+parking = SmartParking(5)
+
+while True:
+    print("\n====== SMART PARKING SYSTEM ======")
+    print("1. Display Parking Slots")
+    print("2. Park Vehicle")
+    print("3. Vehicle Leaves")
+    print("4. Exit")
+
+    choice = input("Enter your choice: ")
+
+    if choice == "1":
+        parking.display_slots()
+
+    elif choice == "2":
+        parking.park_vehicle()
+
+    elif choice == "3":
+        slot = int(input("Enter slot number: "))
+        parking.leave_vehicle(slot)
+
+    elif choice == "4":
+        print("System Closed.")
+        break
+
+    else:
+        print("Invalid Choice")
